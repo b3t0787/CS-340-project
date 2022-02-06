@@ -1,0 +1,57 @@
+body {
+  background-color: white;
+  font-family: serif;
+  color: black;
+  margin: 2em;
+  padding: 2em;
+  text-align: center;
+}
+
+li {text-align: left;}
+
+h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 2em;
+  color:black
+}
+
+table {
+  width: 90%;
+  font-family: serif;
+  border-collapse: collapse;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+caption {
+  font-size: 3em;
+}
+
+.greenifyUpsize {
+  font-size: 3em;
+  color: green;
+}
+
+th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  background-color:rgb(115, 158, 194);
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background: #ddd;
+}
+
+td {
+  font-size: 1.25em;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: black;
+}
