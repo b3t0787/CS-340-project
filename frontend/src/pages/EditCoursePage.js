@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const AddDegreePage = () => {
-
+const EditCoursePage = () => {
 
     return (
         <div>
-            <h1>Add Degree</h1>
+            <h1>Edit Course</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/Degrees">Degrees Page</Link></p>
+            <p>Return to <Link to="/Courses">Courses Page</Link></p>
             <table>
                 <thead>
                  <tr>
-                    <th>Degree Name</th>
-                    <th>Department Name</th>
+                    <th>Title</th>
+                    <th>Department</th>
+                    <th>Unit Hours</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -26,14 +27,18 @@ const AddDegreePage = () => {
                          <input
                          type="text" />
                     </td>
+                    <td>
+                        <input
+                        type="number"/>
+                    </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button >Edit</button>
         </div>
     );
 
 
 };
 
-export default AddDegreePage;
+export default EditCoursePage;

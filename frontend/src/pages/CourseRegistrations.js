@@ -8,6 +8,8 @@ function CourseRegistrations() {
         <>
         <h1>Course Registrations</h1>
         <p>Return to <Link to="/">Home Page</Link></p>
+        <p><Link to="/add-course-registration">Add Course Registration</Link></p>
+        <p><Link to="/record-grade">Record Grade</Link></p>
         <table id="course registrations">
             <thead>
                 <tr>
@@ -33,7 +35,7 @@ function CourseRegistrations() {
                 <td>3</td>
                 <td>77</td>
                 <td>C</td>
-                <td><MdEdit /></td>
+                <td><MdEdit/></td>
                 <td><MdDeleteForever /></td>
             </tr>
             </tbody>

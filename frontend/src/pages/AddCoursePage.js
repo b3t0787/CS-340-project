@@ -8,6 +8,7 @@ const AddCoursePage = () => {
         <div>
             <h1>Add Course</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
+            <p>Return to <Link to="/Courses">Courses Page</Link></p>
             <table>
                 <thead>
                  <tr>

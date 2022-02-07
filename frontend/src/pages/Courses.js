@@ -1,14 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
 
 function Courses() {
+
+    const nav = useNavigate()
 
     return (
         <>
         <h1>Courses</h1>
         <p>Return to <Link to="/">Home Page</Link></p>
-        <Link to="/add-course">Add a Course</Link>
+        <p><Link to="/add-course">Add Course</Link></p>
         <table id="courses">
             <thead>
                 <tr>
@@ -24,14 +26,14 @@ function Courses() {
                 <td>SCAR 110: Vocal Study</td>
                 <td>Scaring</td>
                 <td>2</td>
-                <td><MdEdit /></td>
+                <td><MdEdit onClick={ () => nav("/edit-course")}/></td>
                 <td><MdDeleteForever /></td>
             </tr>
             <tr>
                 <td>SCAR 145: Avoiding Lights</td>
                 <td>Scaring</td>
                 <td>4</td>
-                <td><MdEdit /></td>
+                <td><MdEdit onClick={ () => nav("/edit-course")}/></td>
                 <td><MdDeleteForever /></td>
             </tr>
             </tbody>

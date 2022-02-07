@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const AddDepartmentPage = () => {
+const EditDepartmentPage = () => {
 
 
     return (
         <div>
-            <h1>Add Department</h1>
+            <h1>Edit Department</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
             <p>Return to <Link to="/Departments">Departments Page</Link></p>
             <table>
@@ -24,11 +24,11 @@ const AddDepartmentPage = () => {
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button >Edit</button>
         </div>
     );
 
 
 };
 
-export default AddDepartmentPage;
+export default EditDepartmentPage;

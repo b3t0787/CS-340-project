@@ -9,8 +9,13 @@ import CourseRegistrations from './pages/CourseRegistrations';
 import AddStudentPage from './pages/AddStudentPage';
 import AddCoursePage from './pages/AddCoursePage';
 import AddDepartmentPage from './pages/AddDepartmentPage';
-import AddDegreePage from './pages/AddDegreePage'
-import AddCourseRegistrationPage from './pages/AddCourseRegistrationPage'
+import AddDegreePage from './pages/AddDegreePage';
+import AddCourseRegistrationPage from './pages/AddCourseRegistrationPage';
+import RecordGradePage from './pages/RecordGradePage';
+import EditStudentPage from './pages/EditStudentPage';
+import EditDepartMentPage from './pages/EditDepartmentPage';
+import EditDegreePage from './pages/EditDegreePage';
+import EditCoursePage from './pages/EditCoursePage';
 
 function App() {
   return (
@@ -27,9 +32,13 @@ function App() {
         <Route path="/add-department" element={<AddDepartmentPage />} />
         <Route path="/add-degree" element={<AddDegreePage />} />
         <Route path="/add-course-registration" element={<AddCourseRegistrationPage />} />
+        <Route path="/record-grade" element={<RecordGradePage />} />
+        <Route path="/edit-student" element={<EditStudentPage />} />
+        <Route path="/edit-course" element={<EditCoursePage />} />
+        <Route path="/edit-department" element={<EditDepartMentPage />} />
+        <Route path="/edit-degree" element={<EditDegreePage />} />
       </Routes>
     </Router>
-
   );
 }
 
