@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
+import { Helmet } from 'react-helmet';
 
 function Students() {
 
@@ -8,6 +9,9 @@ function Students() {
 
     return (
         <>
+        <Helmet>
+        <title>Students</title>
+        </Helmet>
         <h1>Students</h1>
         <p>Return to <Link to="/">Home Page</Link></p>
         <p><Link to="/add-student">Add Student</Link></p>

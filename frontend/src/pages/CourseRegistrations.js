@@ -1,15 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
+import { Helmet } from 'react-helmet';
 
 function CourseRegistrations() {
 
     return (
         <>
+        <Helmet>
+            <title>Course Registrations</title>
+        </Helmet>
         <h1>Course Registrations</h1>
         <p>Return to <Link to="/">Home Page</Link></p>
         <p><Link to="/add-course-registration">Add Course Registration</Link></p>
         <p><Link to="/record-grade">Record Grade</Link></p>
+        <button>Filter Table</button>
         <table id="course registrations">
             <thead>
                 <tr>

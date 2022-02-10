@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const RecordGradePage = () => {
 
 
     return (
         <div>
+            <Helmet>
+                <title>Record Grade</title>
+            </Helmet>
             <h1>Record Grade</h1>
             <p>A grade can be added here once a student has completed a course</p>
             <p>Return to <Link to="/">Home Page</Link></p>

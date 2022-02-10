@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import mu from '../logos/MU.png'
+import { Helmet } from 'react-helmet';
 
 function HomePage() {
 
     return (
         <>
+        <Helmet>
+            <title>MU</title>
+        </Helmet>
         <h1>Welcome to Monsters University</h1>
         <ul>
             <li><Link to="Students">Students</Link></li>

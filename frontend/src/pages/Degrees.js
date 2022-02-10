@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
+import { Helmet } from 'react-helmet';
 
 function Degrees() {
 
@@ -8,6 +9,9 @@ function Degrees() {
 
     return (
         <>
+        <Helmet>
+            <title>Degrees</title>
+        </Helmet>
         <h1>Degrees</h1>
         <p>Return to <Link to="/">Home Page</Link></p>
         <p><Link to="/add-degree">Add Degree</Link></p>

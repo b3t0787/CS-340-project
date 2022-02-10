@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const EditDegreePage = () => {
 
 
     return (
         <div>
+             <Helmet>
+                <title>Edit Degree</title>
+            </Helmet>
             <h1>Edit Degree</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
             <p>Return to <Link to="/Degrees">Degrees Page</Link></p>
@@ -13,7 +17,7 @@ const EditDegreePage = () => {
                 <thead>
                  <tr>
                     <th>Degree Name</th>
-                    <th>Department Name</th>
+                    <th>Department id</th>
                 </tr>
             </thead>
             <tbody>

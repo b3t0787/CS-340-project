@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const EditDepartmentPage = () => {
 
 
     return (
         <div>
+            <Helmet>
+                <title>Edit Department</title>
+            </Helmet>
             <h1>Edit Department</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
             <p>Return to <Link to="/Departments">Departments Page</Link></p>

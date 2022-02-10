@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 const AddStudentPage = () => {
 
 
     return (
         <div>
+             <Helmet>
+                <title>Add Student</title>
+            </Helmet>
             <h1>Add Student</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
             <p>Return to <Link to="/Students">Students Page</Link></p>
