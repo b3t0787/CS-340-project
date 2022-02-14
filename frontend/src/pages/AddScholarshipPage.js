@@ -2,24 +2,21 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-const RecordGradePage = () => {
-
+const AddScholarshipPage = () => {
 
     return (
         <div>
-            <Helmet>
-                <title>Record Grade</title>
+             <Helmet>
+                <title>Add Scholarship</title>
             </Helmet>
-            <h1>Record Grade</h1>
-            <p>A grade can be added here once a student has completed a course</p>
+            <h1>Add Scholarship</h1>
             <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/course-registrations">Course Registrations Page</Link></p>
+            <p>Return to <Link to="/Scholarships">Scholarship Page</Link></p>
             <table>
                 <thead>
                  <tr>
-                    <th>Student id</th>
-                    <th>Course id</th>
-                    <th>Score</th>
+                    <th>Scholarship Name</th>
+                    <th>Amount</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,16 +29,14 @@ const RecordGradePage = () => {
                          <input
                          type="text" />
                     </td>
-                    <td>
-                        <input
-                        type="text"/>
-                    </td>
                     </tr>
             </tbody>
             </table>
             <button >Add</button>
         </div>
     );
+
+
 };
 
-export default RecordGradePage;
+export default AddScholarshipPage;

@@ -54,7 +54,8 @@ const EditStudentPage = () => {
                     <th>Zip</th>
                     <th>Phone Number</th>
                     <th>Date of Birth</th>
-                    <th>Degree</th>
+                    <th>Degree id</th>
+                    <th>Scholarship id</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +75,10 @@ const EditStudentPage = () => {
                     <td>
                         <input
                         type="text"/>
+                    </td>
+                    <td>
+                        <input
+                        type="number" />
                     </td>
                     </tr>
             </tbody>

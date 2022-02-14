@@ -27,6 +27,7 @@ function Students() {
                     <th>Phone number</th>
                     <th>Date of Birth</th>
                     <th>Degree</th>
+                    <th>Scholarship</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -42,6 +43,7 @@ function Students() {
                 <td>(797)467-3457</td>
                 <td>07/22/1909</td>
                 <td>BS Scaring</td>
+                <td>None</td>
                 <td><MdEdit onClick={ () => nav("/edit-student")}/></td>
                 <td><MdDeleteForever /></td>
             </tr>
@@ -55,6 +57,7 @@ function Students() {
                 <td>(797)473-3847</td>
                 <td>05/13/1955</td>
                 <td>BS Scaring</td>
+                <td>Coca-Cola Monsters Scholarship</td>
                 <td><MdEdit onClick={ () => nav("/edit-student")}/></td>
                 <td><MdDeleteForever /></td>
             </tr>
