@@ -11,8 +11,10 @@ const AddCourseRegistrationPage = () => {
                 <title>Add Course Registration</title>
             </Helmet>
             <h1>Course Registration</h1>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/course-registrations">Course Registrations Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/course-registrations">Course Registrations Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>

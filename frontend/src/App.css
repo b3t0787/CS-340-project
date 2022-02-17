@@ -41,6 +41,15 @@ th {
   background-color:rgb(115, 158, 194);
 }
 
+button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgb(144, 145, 141);
+
+}
+
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }

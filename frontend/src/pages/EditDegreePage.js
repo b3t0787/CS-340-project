@@ -11,8 +11,10 @@ const EditDegreePage = () => {
                 <title>Edit Degree</title>
             </Helmet>
             <h1>Edit Degree</h1>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/Degrees">Degrees Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/Degrees">Degrees Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>

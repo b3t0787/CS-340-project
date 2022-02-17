@@ -13,8 +13,10 @@ function Degrees() {
             <title>Degrees</title>
         </Helmet>
         <h1>Degrees</h1>
-        <p>Return to <Link to="/">Home Page</Link></p>
-        <p><Link to="/add-degree">Add Degree</Link></p>
+        <ul>
+        <li><Link to="/">Home Page</Link></li>
+        <li><Link to="/add-degree">Add Degree</Link></li>
+        </ul>
         <table id="degrees">
             <thead>
                 <tr>

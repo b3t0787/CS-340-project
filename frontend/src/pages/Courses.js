@@ -13,8 +13,10 @@ function Courses() {
             <title>Courses</title>
         </Helmet>
         <h1>Courses</h1>
-        <p>Return to <Link to="/">Home Page</Link></p>
-        <p><Link to="/add-course">Add Course</Link></p>
+        <ul>
+        <li><Link to="/">Home Page</Link></li>
+        <li><Link to="/add-course">Add Course</Link></li>
+        </ul>
         <table id="courses">
             <thead>
                 <tr>

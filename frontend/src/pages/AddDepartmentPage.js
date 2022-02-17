@@ -11,8 +11,10 @@ const AddDepartmentPage = () => {
                 <title>Add Department</title>
             </Helmet>
             <h1>Add Department</h1>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/Departments">Departments Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/Departments">Departments Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>

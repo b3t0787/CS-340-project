@@ -10,8 +10,10 @@ const AddScholarshipPage = () => {
                 <title>Add Scholarship</title>
             </Helmet>
             <h1>Add Scholarship</h1>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/Scholarships">Scholarship Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/Scholarships">Scholarship Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>

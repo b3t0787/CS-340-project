@@ -11,9 +11,10 @@ function CourseRegistrations() {
             <title>Course Registrations</title>
         </Helmet>
         <h1>Course Registrations</h1>
-        <p>Return to <Link to="/">Home Page</Link></p>
-        <p><Link to="/add-course-registration">Add Course Registration</Link></p>
-        <p><Link to="/record-grade">Record Grade</Link></p>
+        <ul>
+        <li><Link to="/">Home Page</Link></li>
+        <li><Link to="/add-course-registration">Add Course Registration</Link></li>
+        </ul>
         <button>Filter Table</button>
         <table id="course registrations">
             <thead>
@@ -22,7 +23,7 @@ function CourseRegistrations() {
                     <th>Course id</th>
                     <th>Score</th>
                     <th>Grade</th>
-                    <th>Edit</th>
+                    <th>Record Grade</th>
                     <th>Delete</th>
                 </tr>
             </thead>
@@ -32,7 +33,7 @@ function CourseRegistrations() {
                 <td>5</td>
                 <td>98</td>
                 <td>A</td>
-                <td><MdEdit /></td>
+                <td><MdEdit onClick={ () => <input type="text"/>}/></td>
                 <td><MdDeleteForever /></td>
             </tr>
             <tr>

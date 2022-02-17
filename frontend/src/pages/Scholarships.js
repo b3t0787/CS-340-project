@@ -13,8 +13,10 @@ function Scholarships() {
         <title>Scholarships</title>
         </Helmet>
         <h1>Scholarships</h1>
-        <p>Return to <Link to="/">Home Page</Link></p>
-        <p><Link to="/add-scholarship">Add Scholarship</Link></p>
+        <ul>
+        <li><Link to="/">Home Page</Link></li>
+        <li><Link to="/add-scholarship">Add Scholarship</Link></li>
+        </ul>
         <table id="scholarships">
             <thead>
                 <tr>

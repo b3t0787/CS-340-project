@@ -10,8 +10,10 @@ const EditCoursePage = () => {
                 <title>Edit Course</title>
             </Helmet>
             <h1>Edit Course</h1>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/Courses">Courses Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/Courses">Courses Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>

@@ -11,8 +11,10 @@ const EditStudentPage = () => {
                 <title>Edit Student</title>
             </Helmet>
             <h1>Edit Student</h1>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/Students">Students Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/Students">Students Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>
