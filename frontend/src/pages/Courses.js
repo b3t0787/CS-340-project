@@ -17,6 +17,13 @@ function Courses() {
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-course">Add Course</Link></li>
         </ul>
+        <form>
+            <label>
+                Department Name:
+                <input type="text" name="department-name" />
+                <button>Search</button>
+            </label>
+        </form>
         <table id="courses">
             <thead>
                 <tr>

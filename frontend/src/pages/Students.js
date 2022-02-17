@@ -17,6 +17,24 @@ function Students() {
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-student">Add Student</Link></li>
         </ul>
+        <form>
+            <label>
+                First Name:
+                <input type="text" name="first-name" />
+            </label>
+            <label>
+                Last Name:
+                <input type="text" name="last-name" />
+                <button>Search</button>
+            </label>
+        </form>
+        <form>
+            <label>
+                Scholarship:
+                <input type="text" name="scholarship" />
+                <button>Search</button>
+            </label>
+        </form>
         <table id="students">
             <thead>
                 <tr>

@@ -17,6 +17,13 @@ function Degrees() {
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-degree">Add Degree</Link></li>
         </ul>
+        <form>
+            <label>
+                Department Name:
+                <input type="text" name="department-name" />
+                <button>Search</button>
+            </label>
+        </form>
         <table id="degrees">
             <thead>
                 <tr>

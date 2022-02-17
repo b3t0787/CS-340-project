@@ -17,6 +17,17 @@ function Scholarships() {
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-scholarship">Add Scholarship</Link></li>
         </ul>
+        <form>
+            <label>
+                Min Amount:
+                <input type="text" name="min-amount"/>
+            </label>
+            <label>
+                Max Amount:
+                <input type="text" name="max-amount" />
+                <button>Search</button>
+            </label>
+        </form>
         <table id="scholarships">
             <thead>
                 <tr>

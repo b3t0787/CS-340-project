@@ -11,14 +11,13 @@ const RecordGradePage = () => {
                 <title>Record Grade</title>
             </Helmet>
             <h1>Record Grade</h1>
-            <p>A grade can be added here once a student has completed a course</p>
-            <p>Return to <Link to="/">Home Page</Link></p>
-            <p>Return to <Link to="/course-registrations">Course Registrations Page</Link></p>
+            <ul>
+            <li><Link to="/">Home Page</Link></li>
+            <li><Link to="/course-registrations">Course Registrations Page</Link></li>
+            </ul>
             <table>
                 <thead>
                  <tr>
-                    <th>Student id</th>
-                    <th>Course id</th>
                     <th>Score</th>
                 </tr>
             </thead>
@@ -27,14 +26,6 @@ const RecordGradePage = () => {
                     <td>
                         <input
                         type="text" />
-                    </td>
-                    <td>
-                         <input
-                         type="text" />
-                    </td>
-                    <td>
-                        <input
-                        type="text"/>
                     </td>
                     </tr>
             </tbody>
