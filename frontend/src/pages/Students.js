@@ -1,11 +1,33 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import ListStudents from '../components/ListStudents.js';
 
 function Students() {
+    const [students, setStudents] = useState([]);
 
     const nav = useNavigate();
+
+    const deleteStudent = async _id => {
+        const response = await fetch(`/Students/${_id}`, {method: "DELETE" });
+        if (response.status === 204) {
+            setStudents(students.filter(e => e.student_id !== _id));
+        } else {
+            console.error(`Failed to delete exercise with _id = ${_id}`);
+        }
+    };
+
+    const loadStudents = async () => {
+        const response = await fetch('/Students'); // calling rest API to obtain array of "students"
+        const data = await response.json();
+        setStudents(data);
+    }
+
+    useEffect( () => {
+        loadStudents();
+    }, []);
 
     return (
         <>
@@ -35,54 +57,7 @@ function Students() {
                 <button>Search</button>
             </label>
         </form>
-        <table id="students">
-            <thead>
-                <tr>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>Street</th>
-                    <th>City</th>
-                    <th>State</th>
-                    <th>Zip</th>
-                    <th>Phone number</th>
-                    <th>Date of Birth</th>
-                    <th>Degree</th>
-                    <th>Scholarship</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Mike</td>
-                <td>Wazowski</td>
-                <td>123 Stalk st</td>
-                <td>Monstropolis</td>
-                <td>Monstro</td>
-                <td>59135</td>
-                <td>(797)467-3457</td>
-                <td>07/22/1909</td>
-                <td>BS Scaring</td>
-                <td>None</td>
-                <td><MdEdit onClick={ () => nav("/edit-student")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            <tr>
-                <td>James</td>
-                <td>Sullivan</td>
-                <td>456 Stalk st</td>
-                <td>Monstropolis</td>
-                <td>Monstro</td>
-                <td>59136</td>
-                <td>(797)473-3847</td>
-                <td>05/13/1955</td>
-                <td>BS Scaring</td>
-                <td>Coca-Cola Monsters Scholarship</td>
-                <td><MdEdit onClick={ () => nav("/edit-student")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            </tbody>
-        </table>
+        <ListStudents students={students} deleteStudent={deleteStudent}/>
         </>
     );
 }
