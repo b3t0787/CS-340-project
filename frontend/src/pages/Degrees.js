@@ -2,10 +2,34 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
 import { Helmet } from 'react-helmet';
+import { useState, useEffect } from 'react';
+import ListDegrees from '../components/ListDegrees.js'
+
 
 function Degrees() {
 
-    const nav = useNavigate()
+    const [degrees, setDegrees] = useState([]);
+
+    const nav = useNavigate();
+
+    const deleteDegree = async _id => {
+        const response = await fetch(`/Degrees/${_id}`, {method: "DELETE" });
+        if (response.status === 204) {
+            setDegrees(degrees.filter(e => e.degree_id !== _id));
+        } else {
+            console.error(`Failed to delete course with _id = ${_id}`);
+        }
+    };
+
+    const loadDegrees = async () => {
+        const response = await fetch('/Degrees'); // calling rest API to obtain array of "degrees"
+        const data = await response.json();
+        setDegrees(data);
+    }
+
+    useEffect( () => {
+        loadDegrees();
+    }, []);
 
     return (
         <>
@@ -24,30 +48,7 @@ function Degrees() {
                 <button>Search</button>
             </label>
         </form>
-        <table id="degrees">
-            <thead>
-                <tr>
-                    <th>Degree</th>
-                    <th>Department</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>BS Scream</td>
-                <td>Scream</td>
-                <td><MdEdit onClick={ () => nav("/edit-degree")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            <tr>
-                <td>BS Scaring</td>
-                <td>Scaring</td>
-                <td><MdEdit onClick={ () => nav("/edit-degree")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            </tbody>
-        </table>
+        <ListDegrees degrees={degrees} deleteDegree={deleteDegree}/>
         </>
     );
 }

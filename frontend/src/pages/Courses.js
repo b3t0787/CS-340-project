@@ -2,10 +2,33 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
 import { Helmet } from 'react-helmet';
+import { useState, useEffect } from 'react';
+import ListCourses from '../components/ListCourses.js'
 
 function Courses() {
 
-    const nav = useNavigate()
+    const [courses, setCourses] = useState([]);
+
+    const nav = useNavigate();
+
+    const deleteCourse = async _id => {
+        const response = await fetch(`/Courses/${_id}`, {method: "DELETE" });
+        if (response.status === 204) {
+            setCourses(courses.filter(e => e.course_id !== _id));
+        } else {
+            console.error(`Failed to delete course with _id = ${_id}`);
+        }
+    };
+
+    const loadCourses = async () => {
+        const response = await fetch('/Courses'); // calling rest API to obtain array of "courses"
+        const data = await response.json();
+        setCourses(data);
+    }
+
+    useEffect( () => {
+        loadCourses();
+    }, []);
 
     return (
         <>
@@ -24,33 +47,7 @@ function Courses() {
                 <button>Search</button>
             </label>
         </form>
-        <table id="courses">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Department</th>
-                    <th>Unit hours</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>SCAR 110: Vocal Study</td>
-                <td>Scaring</td>
-                <td>2</td>
-                <td><MdEdit onClick={ () => nav("/edit-course")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            <tr>
-                <td>SCAR 145: Avoiding Lights</td>
-                <td>Scaring</td>
-                <td>4</td>
-                <td><MdEdit onClick={ () => nav("/edit-course")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            </tbody>
-        </table>
+        <ListCourses courses={courses} deleteCourse={deleteCourse}/>
         </>
     );
 }

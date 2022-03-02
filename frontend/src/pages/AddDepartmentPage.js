@@ -4,6 +4,25 @@ import { Helmet } from 'react-helmet';
 
 const AddDepartmentPage = () => {
 
+    const [dept_name, setDept_name] = useState('');
+ 
+
+    const AddDepartment = async () => {
+
+        const newDepartment = { dept_name: dept_name };
+        const response = await fetch('/add-department', {
+            method: 'POST',
+            body: JSON.stringify(newDepartment),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 201) {
+            alert("Successfully added the department");
+        } else {
+            alert(`Failed to add course, satus code = ${response.status}`);
+        }
+    };
 
     return (
         <div>
@@ -24,13 +43,15 @@ const AddDepartmentPage = () => {
             <tbody>
                 <tr>
                     <td>
-                        <input
-                        type="text" />
+                    <input
+                        type="text" 
+                        value={dept_name}
+                        onChange={e => setDept_name(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button onClick={AddDepartment}>Add</button>
         </div>
     );
 

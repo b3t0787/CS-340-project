@@ -4,6 +4,25 @@ import { Helmet } from 'react-helmet';
 
 const AddScholarshipPage = () => {
 
+    const [name, setName] = useState('');
+    const [amount, setAmount] = useState('');
+
+    const AddScholarship = async () => {
+
+        const newScholarship = { name: name, amount: amount };
+        const response = await fetch('/add-scholarship', {
+            method: 'POST',
+            body: JSON.stringify(newScholarship),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 201) {
+            alert("Successfully added the scholarship");
+        } else {
+            alert(`Failed to add scholarship, satus code = ${response.status}`);
+        }
+    };
     return (
         <div>
              <Helmet>
@@ -24,17 +43,21 @@ const AddScholarshipPage = () => {
             <tbody>
                 <tr>
                     <td>
-                        <input
-                        type="text" />
+                    <input
+                        type="text" 
+                        value={name}
+                        onChange={e => setName(e.target.value)}/>
                     </td>
                     <td>
-                         <input
-                         type="text" />
+                    <input
+                        type="number" 
+                        value={amount}
+                        onChange={e => setAmount(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button onClick={AddScholarship}>Add</button>
         </div>
     );
 

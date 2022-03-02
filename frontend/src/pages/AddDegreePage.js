@@ -4,6 +4,25 @@ import { Helmet } from 'react-helmet';
 
 const AddDegreePage = () => {
 
+    const [dept_id, setDept_id] = useState('');
+    const [degree_name, setDegree_name] = useState('');
+
+    const AddDegree = async () => {
+
+        const newDegree = { dept_id: dept_id,  degree_name: degree_name };
+        const response = await fetch('/add-degree', {
+            method: 'POST',
+            body: JSON.stringify(newDegree),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 201) {
+            alert("Successfully added the course");
+        } else {
+            alert(`Failed to add course, satus code = ${response.status}`);
+        }
+    };
 
     return (
         <div>
@@ -26,16 +45,20 @@ const AddDegreePage = () => {
                 <tr>
                     <td>
                         <input
-                        type="text" />
+                        type="text" 
+                        value={degree_name}
+                        onChange={e => setDegree_name(e.target.value)}/>
                     </td>
                     <td>
-                         <input
-                         type="text" />
+                        <input
+                        type="number" 
+                        value={dept_id}
+                        onChange={e => setDept_id(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button onClick={AddDegree}>Add</button>
         </div>
     );
 

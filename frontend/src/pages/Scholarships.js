@@ -1,11 +1,35 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
+import ListScholarships from '../components/ListScholarships.js'
+
 
 function Scholarships() {
 
+    const [scholarships, setScholarships] = useState([]);
+
     const nav = useNavigate();
+
+    const deleteScholarship = async _id => {
+        const response = await fetch(`/Scholarships/${_id}`, {method: "DELETE" });
+        if (response.status === 204) {
+            setScholarships(scholarships.filter(e => e.scholarship_id !== _id));
+        } else {
+            console.error(`Failed to delete course with _id = ${_id}`);
+        }
+    };
+
+    const loadScholarships = async () => {
+        const response = await fetch('/Scholarships'); // calling rest API to obtain array of "scholarships"
+        const data = await response.json();
+        setScholarships(data);
+    }
+
+    useEffect( () => {
+        loadScholarships();
+    }, []);
 
     return (
         <>
@@ -28,30 +52,7 @@ function Scholarships() {
                 <button>Search</button>
             </label>
         </form>
-        <table id="scholarships">
-            <thead>
-                <tr>
-                    <th>Scholarship name</th>
-                    <th>Amount</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Coca-Cola Monster Scholarship</td>
-                <td>35000.00</td>
-                <td><MdEdit onClick={ () => nav("/edit-scholarship")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            <tr>
-                <td>All Monster Scholarship</td>
-                <td>3500.00</td>
-                <td><MdEdit onClick={ () => nav("/edit-scholarship")}/></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            </tbody>
-        </table>
+        <ListScholarships scholarships={scholarships} deleteScholarship={deleteScholarship}/>
         </>
     );
 }

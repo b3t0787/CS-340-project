@@ -4,6 +4,25 @@ import { Helmet } from 'react-helmet';
 
 const AddCourseRegistrationPage = () => {
 
+    const [student_id, setStudent_id] = useState('');
+    const [course_id, setCourse_id] = useState('');
+
+    const AddCourseRegistration = async () => {
+
+        const newCourseRegistration = { student_id: student_id, course_id: course_id };
+        const response = await fetch('/add-course-registration', {
+            method: 'POST',
+            body: JSON.stringify(newCourseRegistration),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 201) {
+            alert("Successfully added the course registration");
+        } else {
+            alert(`Failed to add course registration, satus code = ${response.status}`);
+        }
+    };
 
     return (
         <div>
@@ -25,17 +44,21 @@ const AddCourseRegistrationPage = () => {
             <tbody>
                 <tr>
                     <td>
-                        <input
-                        type="text" />
+                    <input
+                        type="number" 
+                        value={student_id}
+                        onChange={e => setStudent_id(e.target.value)}/>
                     </td>
                     <td>
-                         <input
-                         type="text" />
+                    <input
+                        type="number" 
+                        value={course_id}
+                        onChange={e => setCourse_id(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button onClick={AddCourseRegistration}>Add</button>
         </div>
     );
 };

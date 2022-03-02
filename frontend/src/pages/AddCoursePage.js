@@ -4,6 +4,26 @@ import { Helmet } from 'react-helmet';
 
 const AddCoursePage = () => {
 
+    const [dept_id, setDept_id] = useState('');
+    const [title, setTitle] = useState('');
+    const [unit_hours, setUnit_hours] = useState('');
+
+    const AddCourse = async () => {
+
+        const newCourse = { dept_id: dept_id,  title: title, unit_hours: unit_hours };
+        const response = await fetch('/add-course', {
+            method: 'POST',
+            body: JSON.stringify(newCourse),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        if (response.status === 201) {
+            alert("Successfully added the course");
+        } else {
+            alert(`Failed to add course, satus code = ${response.status}`);
+        }
+    };
 
     return (
         <div>
@@ -19,7 +39,7 @@ const AddCoursePage = () => {
                 <thead>
                  <tr>
                     <th>Title</th>
-                    <th>Department id</th>
+                    <th>Department</th>
                     <th>Unit Hours</th>
 
                 </tr>
@@ -27,21 +47,27 @@ const AddCoursePage = () => {
             <tbody>
                 <tr>
                     <td>
-                        <input
-                        type="text" />
+                    <input
+                        type="text" 
+                        value={title}
+                        onChange={e => setTitle(e.target.value)}/>
                     </td>
                     <td>
-                         <input
-                         type="text" />
+                    <input
+                        type="number" 
+                        value={dept_id}
+                        onChange={e => setDept_id(e.target.value)}/>
                     </td>
                     <td>
-                        <input
-                        type="number"/>
+                    <input
+                        type="number" 
+                        value={unit_hours}
+                        onChange={e => setUnit_hours(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button onClick={AddCourse}>Add</button>
         </div>
     );
 

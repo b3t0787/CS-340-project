@@ -1,12 +1,36 @@
 import React from 'react';
 import { Link , useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
-import { SiAddthis } from 'react-icons/si';
 import { Helmet } from 'react-helmet';
+import ListCourseRegistrations from '../components/ListCourseRegistrations.js';
 
 function CourseRegistrations() {
 
+    const [courseRegistrations, setCourseRegistrations] = useState([]);
+
     const nav = useNavigate();
+
+    const deleteCourseRegistration = async (student_id, course_id) => {
+        const response = await fetch(`/Course-Registrations/student_id/${student_id}/course_id/${course_id}`, 
+        {method: "DELETE" });
+        if (response.status === 204) {
+            setCourseRegistrations(courseRegistrations.filter(e => e.student_id !== student_id || e.course_id !== course_id ));
+        } else {
+            console.error(`Failed to delete course registration with student_id = ${student_id} and 
+            course_id = ${course_id}`);
+        }
+    };
+
+    const loadCourseRegistrations = async () => {
+        const response = await fetch('/Course-Registrations'); // calling rest API to obtain array of "course registrations"
+        const data = await response.json();
+        setCourseRegistrations(data);
+    }
+
+    useEffect( () => {
+        loadCourseRegistrations();
+    }, []);
 
     return (
         <>
@@ -40,36 +64,8 @@ function CourseRegistrations() {
                 <button>Search</button>
             </label>
         </form>
-        <table id="course registrations">
-            <thead>
-                <tr>
-                    <th>Student id</th>
-                    <th>Course id</th>
-                    <th>Score</th>
-                    <th>Grade</th>
-                    <th>Record Grade</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>5</td>
-                <td>98</td>
-                <td>A</td>
-                <td><SiAddthis onClick={ () => nav("/record-grade")} /></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>3</td>
-                <td>77</td>
-                <td>C</td>
-                <td><SiAddthis onClick={ () => nav("/record-grade")} /></td>
-                <td><MdDeleteForever /></td>
-            </tr>
-            </tbody>
-        </table>
+        <ListCourseRegistrations courseRegistrations={courseRegistrations} 
+        deleteCourseRegistration={deleteCourseRegistration}/>
         </>
     );
 }
