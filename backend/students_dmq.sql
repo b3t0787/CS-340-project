@@ -9,7 +9,8 @@ VALUES (:degree_id, :first_name, :last_name, :street, :city, :s_state, :zip, :pn
 --Retrieve students--
 SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, 
 	   Students.city, Students.state, Students.zip, Students.phone_number,
-	   Students.dob, Degrees.degree_name, Scholarships.name FROM Students 
+	   Students.dob, Degrees.degree_name, Scholarships.name, Degrees.degree_id,
+	   Scholarships.scholarship_id FROM Students 
 	   INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id
 	   LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id;
 
@@ -37,13 +38,13 @@ SELECT Students.student_id, Students.first_name, Students.last_name, Students.st
 	   LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name=:first_name 
 	   OR Students.last_name=:last_name;
 
---search by yes or no scholarship
+--search by degrees
 SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, 
 	   Students.city, Students.state, Students.zip, Students.phone_number,
 	   Students.dob, Degrees.degree_name, Scholarships.name FROM Students 
 	   INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id
 	   LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE 
-	   Scholarships.scholarship_id IS NOT NULL;
+	   Students.degree_id=:degree_id;
 
 --**********************************************--
 --DB manipulation queries for Scholarships table--
@@ -71,7 +72,7 @@ SELECT * FROM Scholarships WHERE Scholarships.amount BETWEEN :min_amt AND :max_a
 INSERT INTO `Degrees` (`dept_id`, `degree_name`)
 VALUES (:dept_id, :degree_name);
 
-SELECT Degrees.degree_name, Departments.dept_name FROM Degrees
+SELECT Degrees.degree_id, Departments.dept_id, Degrees.degree_name, Departments.dept_name FROM Degrees
 	   INNER JOIN Departments ON Degrees.dept_id = Departments.dept_id;
 
 --Update degree--
@@ -81,7 +82,7 @@ UPDATE `Degrees` SET `dept_id`=:dept_id, `degree_name`=:degree_name WHERE `degre
 DELETE FROM `Degrees` WHERE `degree_id`=:degree_id;
 
 -- Search Degrees by Department
-SELECT Degrees.degree_name, Departments.dept_name FROM Degrees
+SELECT Degrees.degree_id, Departments.dept_id, Degrees.degree_name, Departments.dept_name FROM Degrees
 	   INNER JOIN Departments ON Degrees.dept_id = Departments.dept_id WHERE Departments.dept_id=:dept_id;
 
 --******************************************************--
@@ -128,8 +129,9 @@ INSERT INTO `Courses` (`dept_id`, `title`, `unit_hours`)
 VALUES (:dept_id, :title, :unit_hours);
 
 --Retrieve Courses--
-SELECT Courses.title, Departments.dept_name, Courses.unit_hours FROM Courses
-	   INNER JOIN Departments ON Courses.dept_id = Departments.dept_id;
+SELECT Courses.course_id, Departments.dept_id, Courses.title, Departments.dept_name, Courses.unit_hours 
+	   FROM Courses INNER JOIN Departments ON Courses.dept_id = Departments.dept_id;
+
 
 --Update course--
 UPDATE `Courses` SET `dept_id`=:dept_id, `title`=:title, `unit_hours`=:unit_hours
@@ -138,9 +140,11 @@ WHERE `course_id`=:course_id;
 --Delete course--
 DELETE FROM `Courses` WHERE `course_id`=:course_id;
 
--- search Courses by Department
-SELECT Courses.title, Departments.dept_name, Courses.unit_hours FROM Courses
-	   INNER JOIN Departments ON Courses.dept_id = Departments.dept_id WHERE Departments.dept_id=:dept_id;
+--Search by Department--
+SELECT Courses.course_id, Departments.dept_id, Courses.title, Departments.dept_name, Courses.unit_hours 
+	   FROM Courses INNER JOIN Departments ON Courses.dept_id = Departments.dept_id 
+	   WHERE Departments.dept_id=:dept_id;
+
 
 --***************************************--
 --DB manipulation queries for Departments--

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
 const AddDepartmentPage = () => {
 
     const [dept_name, setDept_name] = useState('');
+
+    const nav = useNavigate();
  
 
     const AddDepartment = async () => {
@@ -19,6 +22,7 @@ const AddDepartmentPage = () => {
         });
         if (response.status === 201) {
             alert("Successfully added the department");
+            nav("/Departments");
         } else {
             alert(`Failed to add course, satus code = ${response.status}`);
         }
@@ -29,6 +33,7 @@ const AddDepartmentPage = () => {
              <Helmet>
                 <title>Add Department</title>
             </Helmet>
+            <img src={topImage}></img>
             <h1>Add Department</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>

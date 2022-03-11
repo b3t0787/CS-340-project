@@ -62,13 +62,13 @@ DROP TABLE IF EXISTS `Course_Registrations`;
 CREATE TABLE `Course_Registrations` (
     `student_id` int NOT NULL,
     `course_id` int NOT NULL,
-    `score` decimal(4, 2),
+    `score` decimal(5, 2),
     `grade` char,
     PRIMARY KEY (`student_id`, `course_id`),
     CONSTRAINT FOREIGN KEY (`student_id`)
-        REFERENCES `Students` (`student_id`),
+        REFERENCES `Students` (`student_id`) ON DELETE CASCADE,
     CONSTRAINT FOREIGN KEY (`course_id`)
-        REFERENCES `Courses` (`course_id`)
+        REFERENCES `Courses` (`course_id`) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 SET FOREIGN_KEY_CHECKS=1;

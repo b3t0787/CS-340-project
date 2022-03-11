@@ -1,8 +1,7 @@
 import React from 'react';
 import Scholarship from './Scholarship.js';
 
-
-function ListScholarships( {scholarships, deleteScholarship} ) {
+function ListScholarships( {scholarships, deleteScholarship, onEdit} ) {
     return (
         <table id="scholarships">
         <thead>
@@ -16,6 +15,7 @@ function ListScholarships( {scholarships, deleteScholarship} ) {
         <tbody>
         {scholarships.map((scholarship, i) => <Scholarship scholarship={scholarship}
             deleteScholarship={deleteScholarship}
+            onEdit={onEdit}
                 key={i} />)}
         </tbody>
     </table>

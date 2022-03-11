@@ -1,15 +1,28 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MdDeleteForever, MdEdit} from 'react-icons/md';
 import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
 import ListCourses from '../components/ListCourses.js'
+import topImage from '../logos/topImage.jpeg';
 
-function Courses() {
+function Courses({ setCourseToEdit}) {
 
     const [courses, setCourses] = useState([]);
+    const [dept_id, setDeptId] = useState();
+    const [departments, setDepartments] = useState([]);
 
     const nav = useNavigate();
+
+    const searchDepartment = async() => {
+        const response = await fetch(`/Courses/search-by-department/${dept_id}`);
+        const data = await response.json();
+        setCourses(data);
+    }
+
+    const onEdit = async courseToEdit => {
+        setCourseToEdit(courseToEdit);
+        nav("/edit-course");
+    };
 
     const deleteCourse = async _id => {
         const response = await fetch(`/Courses/${_id}`, {method: "DELETE" });
@@ -26,8 +39,15 @@ function Courses() {
         setCourses(data);
     }
 
+    const loadDepartments = async () => {
+        const response = await fetch('/Departments'); // calling rest API to obtain array of "departments"
+        const data = await response.json();
+        setDepartments(data);
+    };
+
     useEffect( () => {
         loadCourses();
+        loadDepartments();
     }, []);
 
     return (
@@ -35,19 +55,21 @@ function Courses() {
         <Helmet>
             <title>Courses</title>
         </Helmet>
+        <img src={topImage}></img>
         <h1>Courses</h1>
         <ul>
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-course">Add Course</Link></li>
         </ul>
-        <form>
-            <label>
-                Department Name:
-                <input type="text" name="department-name" />
-                <button>Search</button>
-            </label>
-        </form>
-        <ListCourses courses={courses} deleteCourse={deleteCourse}/>
+        <label>Search by Departments</label>
+        <select onChange={e => setDeptId(e.target.value)}>
+            <option></option>
+            {departments.map((department) => <option value={department.dept_id}>{department.dept_name}</option>)}
+            </select>
+        <button onClick={searchDepartment}>Search</button>
+        <br/>
+        <button onClick={loadCourses}>Reset</button>
+        <ListCourses courses={courses} deleteCourse={deleteCourse} onEdit={onEdit}/>
         </>
     );
 }

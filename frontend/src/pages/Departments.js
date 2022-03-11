@@ -1,15 +1,20 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { MdDeleteForever, MdEdit} from 'react-icons/md';
 import { Helmet } from 'react-helmet';
 import ListDepartments from '../components/ListDepartments';
+import topImage from '../logos/topImage.jpeg';
 
-function Departments() {
+function Departments({ setDepartmentToEdit}) {
 
     const [departments, setDepartments] = useState([]);
 
     const nav = useNavigate();
+
+    const onEdit = async departmentToEdit => {
+        setDepartmentToEdit(departmentToEdit);
+        nav("/edit-department");
+    };
 
     const deleteDepartment = async _id => {
         const response = await fetch(`/Departments/${_id}`, {method: "DELETE" });
@@ -35,12 +40,13 @@ function Departments() {
          <Helmet>
             <title>Departments</title>
         </Helmet>
+        <img src={topImage}></img>
         <h1>Departments</h1>
         <ul>
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-department">Add Department</Link></li>
         </ul>
-        <ListDepartments departments={departments} deleteDepartment={deleteDepartment}/>
+        <ListDepartments departments={departments} deleteDepartment={deleteDepartment} onEdit={onEdit}/>
         </>
     );
 }

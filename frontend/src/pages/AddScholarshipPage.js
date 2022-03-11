@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
 const AddScholarshipPage = () => {
 
     const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
+
+    const nav = useNavigate();
 
     const AddScholarship = async () => {
 
@@ -19,6 +22,7 @@ const AddScholarshipPage = () => {
         });
         if (response.status === 201) {
             alert("Successfully added the scholarship");
+            nav("/Scholarships")
         } else {
             alert(`Failed to add scholarship, satus code = ${response.status}`);
         }
@@ -28,6 +32,7 @@ const AddScholarshipPage = () => {
              <Helmet>
                 <title>Add Scholarship</title>
             </Helmet>
+            <img src={topImage}></img>
             <h1>Add Scholarship</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>

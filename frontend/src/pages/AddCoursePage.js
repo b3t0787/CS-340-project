@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
 const AddCoursePage = () => {
 
-    const [dept_id, setDept_id] = useState('');
+    const [dept_id, setDeptId] = useState('');
     const [title, setTitle] = useState('');
     const [unit_hours, setUnit_hours] = useState('');
+    const [departments, setDepartments] = useState([]);
+
+    const nav = useNavigate();
 
     const AddCourse = async () => {
 
@@ -20,16 +24,29 @@ const AddCoursePage = () => {
         });
         if (response.status === 201) {
             alert("Successfully added the course");
+            nav("/Courses")
         } else {
             alert(`Failed to add course, satus code = ${response.status}`);
         }
+
     };
+
+    const loadDepartments = async () => {
+        const response = await fetch('/Departments'); // calling rest API to obtain array of "departments"
+        const data = await response.json();
+        setDepartments(data);
+    };
+
+    useEffect( () => {
+        loadDepartments();
+    }, []);
 
     return (
         <div>
         <Helmet>
             <title>Add Course</title>
         </Helmet>
+        <img src={topImage}></img>
             <h1>Add Course</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>
@@ -53,10 +70,10 @@ const AddCoursePage = () => {
                         onChange={e => setTitle(e.target.value)}/>
                     </td>
                     <td>
-                    <input
-                        type="number" 
-                        value={dept_id}
-                        onChange={e => setDept_id(e.target.value)}/>
+                    <select onChange={e => setDeptId(e.target.value)}>
+                        <option></option>
+                        {departments.map((department) => <option value={department.dept_id}>{department.dept_name}</option>)}
+                    </select>
                     </td>
                     <td>
                     <input

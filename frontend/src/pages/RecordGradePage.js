@@ -1,8 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
-const RecordGradePage = () => {
+const RecordGradePage = ({ gradeToRecord}) => {
+
+    const [score, editScore] = useState(gradeToRecord.score);
+
+    const nav = useNavigate();
+
+    const recordGrade = async () => {
+        const response = await fetch(`/Course-Registrations/student_id/${gradeToRecord.student_id}/course_id/${gradeToRecord.course_id}`, {
+            method: "put",
+            body: JSON.stringify({ score: score }),
+            headers: { 'Content-type': 'application/json'}
+        });
+        if(response.status === 200) {
+            alert("Successfully recorded the grade!");
+            nav("/Course-Registrations")
+        } else {
+            alert(`Failed to record the grade, status code =${response.status}`);
+        }
+    };
 
 
     return (
@@ -10,6 +29,7 @@ const RecordGradePage = () => {
             <Helmet>
                 <title>Record Grade</title>
             </Helmet>
+            <img src={topImage}></img>
             <h1>Record Grade</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>
@@ -25,12 +45,14 @@ const RecordGradePage = () => {
                 <tr>
                     <td>
                         <input
-                        type="text" />
+                        type="number" 
+                        value={score}
+                        onChange={e => editScore(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Add</button>
+            <button onClick={recordGrade}>Record</button>
         </div>
     );
 };

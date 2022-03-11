@@ -23,7 +23,7 @@ const create = (req, res) => {
 // Read stduents
 const retrieve = (req, res) => {
     console.log("is retrieve being called?");
-    let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id;";
+    let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name, Degrees.degree_id, Scholarships.scholarship_id FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id;";
     query = mysql.pool.query(query, function(err, results, fields) {
         if (err) {
             console.log(err);
@@ -60,11 +60,16 @@ const searchFirstAndLast = (req, res) => {
 // Search by first OR last name
 const searchFirstOrLast = (req, res) => {
     console.log("is students.searchFirstOrLast being called?");
-    if (req.params.last === 'empty') {
-        req.params.last = ''
+    console.log(req.params.first, req.params.last);
+    if (req.params.last === '@@@') {
+        req.params.last = '';
     }
+    if (req.params.first === '@@@') {
+        req.params.first = '';
+    }
+    console.log(req.params.first, req.params.last);
     let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name= ? OR Students.last_name= ?;";
-    var inserts = [req.params.first_name, req.params.last_name];
+    var inserts = [req.params.first, req.params.last];
     query = mysql.pool.query(query, inserts, function(err, results, fields) {
         if (err) {
             console.log(err);
@@ -75,6 +80,49 @@ const searchFirstOrLast = (req, res) => {
             console.log("is else being called in retrieve")
             res.setHeader('content-type', 'application/json');
             res.status(200).json(results);
+        }
+    })
+}
+
+// Search by degree
+const searchByDegree = (req, res) => {
+    console.log("is students.searchByDegree being called?");
+    console.log(req.params);
+    let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE  Students.degree_id=?;";
+    var inserts = [req.params.degree_id];
+    query = mysql.pool.query(query, inserts, function(err, results, fields) {
+        if (err) {
+            console.log(err);
+            // In case of an error, send back status code 400
+            res.status(400).json({Error: 'Request failed'});
+        }
+        else {
+            console.log("is else being called in retrieve")
+            res.setHeader('content-type', 'application/json');
+            res.status(200).json(results);
+        }
+    })
+}
+
+// Update student
+const update = (req, res) => {
+    console.log("is update being called?");
+    console.log(req.body);
+    console.log(req.params._id);
+    let query = "UPDATE Students SET degree_id=?, scholarship_id=?, first_name=?, last_name=?, street=?, city=?, state=?, zip=?, phone_number=?, dob=? WHERE student_id=?;";
+    var inserts = [req.body.degree_id, req.body.scholarship_id,  req.body.first_name,
+                   req.body.last_name, req.body.street, req.body.city, req.body.state,
+                   req.body.zip, req.body.phone_number, req.body.dob, req.params._id];
+    query = mysql.pool.query(query, inserts, function(err, results, fields) {
+        if (err) {
+            console.log(err);
+            // In case of an error, send back status code 400
+            res.status(400).json({Error: 'Request failed'});
+        }
+        else {
+            console.log("does the else clause execute?")
+            res.setHeader('content-type', 'application/json');
+            res.status(200).json();
         }
     })
 }
@@ -99,4 +147,4 @@ const remove = (req, res) => {
     })
 }
 
-export { create , retrieve, searchFirstAndLast, searchFirstOrLast, remove };
+export { create , retrieve, searchFirstAndLast, searchFirstOrLast, searchByDegree, remove, update };

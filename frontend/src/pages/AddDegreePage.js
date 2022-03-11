@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
 const AddDegreePage = () => {
 
-    const [dept_id, setDept_id] = useState('');
+    const [dept_id, setDeptId] = useState('');
     const [degree_name, setDegree_name] = useState('');
+    const [departments, setDepartments] = useState([]);
+
+    const nav = useNavigate();
 
     const AddDegree = async () => {
 
@@ -19,16 +23,28 @@ const AddDegreePage = () => {
         });
         if (response.status === 201) {
             alert("Successfully added the course");
+            nav("/Degrees")
         } else {
             alert(`Failed to add course, satus code = ${response.status}`);
         }
     };
+
+    const loadDepartments = async () => {
+        const response = await fetch('/Departments'); // calling rest API to obtain array of "departments"
+        const data = await response.json();
+        setDepartments(data);
+    };
+
+    useEffect( () => {
+        loadDepartments();
+    }, []);
 
     return (
         <div>
             <Helmet>
                 <title>Add Degree</title>
             </Helmet>
+            <img src={topImage}></img>
             <h1>Add Degree</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>
@@ -38,7 +54,7 @@ const AddDegreePage = () => {
                 <thead>
                  <tr>
                     <th>Degree Name</th>
-                    <th>Department id</th>
+                    <th>Department</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,10 +66,10 @@ const AddDegreePage = () => {
                         onChange={e => setDegree_name(e.target.value)}/>
                     </td>
                     <td>
-                        <input
-                        type="number" 
-                        value={dept_id}
-                        onChange={e => setDept_id(e.target.value)}/>
+                    <select onChange={e => setDeptId(e.target.value)}>
+                        <option></option>
+                        {departments.map((department) => <option value={department.dept_id}>{department.dept_name}</option>)}
+            </select>
                     </td>
                     </tr>
             </tbody>

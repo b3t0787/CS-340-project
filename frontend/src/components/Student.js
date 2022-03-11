@@ -1,24 +1,18 @@
 import React from 'react';
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
-import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
-function Student({ student, deleteStudent }) {
-
-    const nav = useNavigate();
+function Student({ student, deleteStudent, onEdit}) {
 
     return (
         <tr>
-            <td>{student.first_name}</td>
-            <td>{student.last_name}</td>
-            <td>{student.street}</td>
-            <td>{student.city}</td>
-            <td>{student.state}</td>
-            <td>{student.zip}</td>
+            <td>{student.first_name} <br/>{student.last_name} </td>
+            <td>{student.street}<br/>{student.city}&nbsp;{student.state}&nbsp;{student.zip}</td>
             <td>{student.phone_number}</td>
-            <td>{student.dob}</td>
+            <td>{moment.utc(student.dob).format('MM/DD/YYYY')}</td>
             <td>{student.degree_name}</td>
             <td>{student.name}</td>
-            <td><MdEdit onClick={ () => nav("/edit-student")}/></td>
+            <td><MdEdit onClick={ () => onEdit(student)}/></td>
             <td><MdDeleteForever onClick={ () => deleteStudent(student.student_id)}/></td>
     </tr>
     )

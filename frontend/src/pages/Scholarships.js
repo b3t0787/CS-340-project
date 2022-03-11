@@ -1,23 +1,45 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { MdDeleteForever, MdEdit} from 'react-icons/md';
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ListScholarships from '../components/ListScholarships.js'
+import topImage from '../logos/topImage.jpeg';
 
 
-function Scholarships() {
+function Scholarships({ setScholarshipToEdit }) {
 
     const [scholarships, setScholarships] = useState([]);
+    const [minScore, setMinScore] = useState('');
+    const [maxScore, setMaxScore] = useState('');
 
     const nav = useNavigate();
+
+    const onEdit = async scholarshipToEdit => {
+        setScholarshipToEdit(scholarshipToEdit);
+        nav("/edit-scholarship");
+    };
+
+    // Search by Score
+    const searchScore = async() => {
+        let min = minScore;
+        let max = maxScore;
+        if (min === '') {
+            min = '@@@'
+        }
+        if (max === '') {
+            max = '@@@'
+        }
+        const response = await fetch(`/Scholarships/search-by-score/min/${min}/max/${max}`);
+        const data = await response.json();
+        setScholarships(data);
+    }
 
     const deleteScholarship = async _id => {
         const response = await fetch(`/Scholarships/${_id}`, {method: "DELETE" });
         if (response.status === 204) {
             setScholarships(scholarships.filter(e => e.scholarship_id !== _id));
         } else {
-            console.error(`Failed to delete course with _id = ${_id}`);
+            console.error(`Failed to delete scholarship with _id = ${_id}`);
         }
     };
 
@@ -36,23 +58,29 @@ function Scholarships() {
         <Helmet>
         <title>Scholarships</title>
         </Helmet>
+        <img src={topImage}></img>
         <h1>Scholarships</h1>
         <ul>
         <li><Link to="/">Home Page</Link></li>
         <li><Link to="/add-scholarship">Add Scholarship</Link></li>
         </ul>
-        <form>
-            <label>
-                Min Amount:
-                <input type="text" name="min-amount"/>
-            </label>
-            <label>
-                Max Amount:
-                <input type="text" name="max-amount" />
-                <button>Search</button>
-            </label>
-        </form>
-        <ListScholarships scholarships={scholarships} deleteScholarship={deleteScholarship}/>
+        <label>
+            Min Score:
+            <input type="number"
+                value={minScore}
+                onChange={e => setMinScore(e.target.value)}/>
+        </label>
+        <label>
+            Max Score:
+            <input type="number" 
+                value={maxScore}
+                onChange={e => setMaxScore(e.target.value)}/>
+                <button onClick={searchScore}>Search</button>
+        </label>
+        <br/>
+        <button onClick={loadScholarships}>Reset</button>
+        <ListScholarships scholarships={scholarships} deleteScholarship={deleteScholarship}
+        onEdit={onEdit}/>
         </>
     );
 }

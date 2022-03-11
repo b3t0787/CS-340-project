@@ -1,20 +1,14 @@
 import React from 'react';
 import Student from './Student.js';
 
-
-
-function ListStudents( {students, deleteStudent} ) {
+function ListStudents( {students, deleteStudent, onEdit} ) {
     return (
         <table id="students">
         <thead>
             <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Street</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip</th>
-                <th>Phone number</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone Number</th>
                 <th>Date of Birth</th>
                 <th>Degree</th>
                 <th>Scholarship</th>
@@ -25,6 +19,7 @@ function ListStudents( {students, deleteStudent} ) {
         <tbody>
             {students.map((student, i) => <Student student={student}
             deleteStudent={deleteStudent}
+            onEdit={onEdit}
                 key={i} />)}
         </tbody>
     </table>

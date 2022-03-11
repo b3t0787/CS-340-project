@@ -1,8 +1,7 @@
 import React from 'react';
 import CourseRegistration from './CourseRegistration.js';
 
-
-function ListCourseRegistrations( {courseRegistrations, deleteCourseRegistration} ) {
+function ListCourseRegistrations( {courseRegistrations, deleteCourseRegistration, onEdit} ) {
     return (
         <table id="course registrations">
         <thead>
@@ -18,6 +17,7 @@ function ListCourseRegistrations( {courseRegistrations, deleteCourseRegistration
         <tbody>
         {courseRegistrations.map((courseRegistration, i) => <CourseRegistration courseRegistration={courseRegistration}
             deleteCourseRegistration={deleteCourseRegistration}
+            onEdit={onEdit}
                 key={i} />)}
         </tbody>
     </table>

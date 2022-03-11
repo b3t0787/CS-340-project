@@ -1,11 +1,7 @@
 import { MdDeleteForever, MdEdit} from 'react-icons/md';
 import { SiAddthis } from 'react-icons/si';
-import { useNavigate } from 'react-router-dom';
 
-
-function CourseRegistration({ courseRegistration, deleteCourseRegistration }) {
-
-    const nav = useNavigate();
+function CourseRegistration({ courseRegistration, deleteCourseRegistration, onEdit }) {
 
     return (
         <tr>
@@ -13,7 +9,7 @@ function CourseRegistration({ courseRegistration, deleteCourseRegistration }) {
             <td>{courseRegistration.title}</td>
             <td>{courseRegistration.score}</td>
             <td>{courseRegistration.grade}</td>
-            <td><SiAddthis onClick={ () => nav("/record-grade")} /></td>
+            <td><SiAddthis onClick={ () => onEdit(courseRegistration)} /></td>
             <td><MdDeleteForever onClick={ () => 
                 deleteCourseRegistration(courseRegistration.student_id, courseRegistration.course_id)}/></td>
         </tr>

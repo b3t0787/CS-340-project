@@ -1,8 +1,7 @@
 import React from 'react';
 import Degree from './Degree.js';
 
-
-function ListDegrees( {degrees, deleteDegree} ) {
+function ListDegrees( {degrees, deleteDegree, onEdit} ) {
     return (
         <table id="degrees">
         <thead>
@@ -16,6 +15,7 @@ function ListDegrees( {degrees, deleteDegree} ) {
         <tbody>
             {degrees.map((degree, i) => <Degree degree={degree}
                 deleteDegree={deleteDegree}
+                onEdit={onEdit}
                     key={i} />)}
         </tbody>
         </table>

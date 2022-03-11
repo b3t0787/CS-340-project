@@ -1,14 +1,53 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
-const EditCoursePage = () => {
+const EditCoursePage = ({ courseToEdit }) => {
+
+    const [course_title, editCourseTitle] = useState(courseToEdit.title);
+    const [dept_id, editDeptId] = useState(courseToEdit.dept_id);
+    const [unit_hours, editUnitHours] = useState(courseToEdit.unit_hours);
+    const [departments, setDepartments] = useState([]);
+
+    const nav = useNavigate();
+
+    const EditCourse = async () => {
+        const response = await fetch(`/Courses/${courseToEdit.course_id}`, {
+            method: "put",
+            body: JSON.stringify({ title: course_title, dept_id: dept_id, unit_hours: unit_hours }),
+            headers: { 'Content-type': 'application/json'}
+        });
+        if(response.status === 200) {
+            alert("Successfully edited the course!");
+            nav("/Courses")
+        } else {
+            alert(`Failed to edit the course, status code =${response.status}`);
+        }
+    };
+
+    const loadDepartments = async () => {
+        const response = await fetch('/Departments'); // calling rest API to obtain array of "Departments"
+        const data = await response.json();
+        setDepartments(data);
+    };
+
+    const handleDepartmentChange = (e) => {
+        editDeptId(e.target.value)
+    };
+
+    // queries to obtain Departments
+     useEffect( () => {
+        loadDepartments();
+    }, []);
+
 
     return (
         <div>
             <Helmet>
                 <title>Edit Course</title>
             </Helmet>
+            <img src={topImage}></img>
             <h1>Edit Course</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>
@@ -18,7 +57,7 @@ const EditCoursePage = () => {
                 <thead>
                  <tr>
                     <th>Title</th>
-                    <th>Department id</th>
+                    <th>Department</th>
                     <th>Unit Hours</th>
 
                 </tr>
@@ -27,20 +66,26 @@ const EditCoursePage = () => {
                 <tr>
                     <td>
                         <input
-                        type="text" />
+                        type="text" 
+                        value={course_title}
+                        onChange={e => editCourseTitle(e.target.value)}/>
                     </td>
                     <td>
-                         <input
-                         type="text" />
+                    <select onChange={handleDepartmentChange}>
+                    <option>{courseToEdit.dept_name}</option> 
+                        {departments.map((department) => <option value={department.dept_id}>{department.dept_name}</option>)}
+                        </select>
                     </td>
                     <td>
                         <input
-                        type="number"/>
+                        type="number"
+                        value={unit_hours}
+                        onChange={e => editUnitHours(e.target.value)}/>
                     </td>
                     </tr>
             </tbody>
             </table>
-            <button >Edit</button>
+            <button onClick={EditCourse}>Edit</button>
         </div>
     );
 

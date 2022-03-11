@@ -37,6 +37,27 @@ const retrieve = (req, res) => {
     })
 }
 
+// Update department
+const update = (req, res) => {
+    console.log("is update being called?");
+    console.log(req.body);
+    console.log(req.params._id);
+    let query = "UPDATE Departments SET dept_name=? WHERE dept_id=?;";
+    var inserts = [req.body.department_name, req.params._id];
+    query = mysql.pool.query(query, inserts, function(err, results, fields) {
+        if (err) {
+            console.log(err);
+            // In case of an error, send back status code 400
+            res.status(400).json({Error: 'Request failed'});
+        }
+        else {
+            console.log("does the else clause execute?")
+            res.setHeader('content-type', 'application/json');
+            res.status(200).json();
+        }
+    })
+}
+
 // Delete department
 const remove = (req, res) => {
     console.log("is remove being called?");
@@ -57,4 +78,4 @@ const remove = (req, res) => {
     })
 }
 
-export { create , retrieve, remove};
+export { create , retrieve, remove, update};

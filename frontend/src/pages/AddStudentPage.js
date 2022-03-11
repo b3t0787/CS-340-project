@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import topImage from '../logos/topImage.jpeg';
 
 const AddStudentPage = () => {
 
-    const [degree_id, setDegree_id] = useState('');
+    const [degree_id, setDegreeId] = useState('');
     const [first_name, setFirst_name] = useState('');
     const [last_name, setLast_name] = useState('');
     const [street, setStreet] = useState('');
@@ -13,6 +14,9 @@ const AddStudentPage = () => {
     const [zip, setZip] = useState('');
     const [phone_number, setPhone_number] = useState('');
     const [dob, setDob] = useState('');
+    const [degrees, setDegrees] = useState([]);
+
+    const nav = useNavigate();
 
     const AddStudent = async () => {
 
@@ -27,16 +31,32 @@ const AddStudentPage = () => {
         });
         if (response.status === 201) {
             alert("Successfully added the student");
+            nav("/Students")
         } else {
             alert(`Failed to add student, satus code = ${response.status}`);
         }
     };
+
+    const loadDegrees = async () => {
+        const response = await fetch('/Degrees'); // calling rest API to obtain array of "degrees"
+        const data = await response.json();
+        setDegrees(data);
+    };
+
+    const handleDegreeChange = (e) => {
+        setDegreeId(e.target.value)
+    };
+
+    useEffect( () => {
+        loadDegrees();
+    }, []);
 
     return (
         <div>
              <Helmet>
                 <title>Add Student</title>
             </Helmet>
+            <img src={topImage}></img>
             <h1>Add Student</h1>
             <ul>
             <li><Link to="/">Home Page</Link></li>
@@ -93,7 +113,7 @@ const AddStudentPage = () => {
                     <th>Zip</th>
                     <th>Phone Number</th>
                     <th>Date of Birth</th>
-                    <th>Degree id</th>
+                    <th>Degree</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -117,10 +137,9 @@ const AddStudentPage = () => {
                         onChange={e => setDob(e.target.value)}/>
                     </td>
                     <td>
-                        <input
-                        type="number"
-                        value={degree_id}
-                        onChange={e => setDegree_id(e.target.value)}/>
+                        <select onChange={handleDegreeChange}>
+                        {degrees.map((degree) => <option value={degree.degree_id}>{degree.degree_name}</option>)}
+                        </select>
                     </td>
                     </tr>
             </tbody>
