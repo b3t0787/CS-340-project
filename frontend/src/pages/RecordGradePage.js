@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const RecordGradePage = ({ gradeToRecord}) => {
 
@@ -10,7 +11,7 @@ const RecordGradePage = ({ gradeToRecord}) => {
     const nav = useNavigate();
 
     const recordGrade = async () => {
-        const response = await fetch(`/Course-Registrations/student_id/${gradeToRecord.student_id}/course_id/${gradeToRecord.course_id}`, {
+        const response = await fetch(`${apiURL}/Course-Registrations/student_id/${gradeToRecord.student_id}/course_id/${gradeToRecord.course_id}`, {
             method: "put",
             body: JSON.stringify({ score: score }),
             headers: { 'Content-type': 'application/json'}

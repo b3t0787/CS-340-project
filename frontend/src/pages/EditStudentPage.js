@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import moment from 'moment';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const EditStudentPage = ({ studentToEdit }) => {
 
@@ -22,7 +23,7 @@ const EditStudentPage = ({ studentToEdit }) => {
     const nav = useNavigate();
 
     const EditStudent = async () => {
-        const response = await fetch(`/Students/${studentToEdit.student_id}`, {
+        const response = await fetch(`${apiURL}/Students/${studentToEdit.student_id}`, {
             method: "put",
             body: JSON.stringify({ first_name: first_name, last_name: last_name, street: street,
             city: city, state: state, zip: zip, phone_number: phone_number, dob: moment.utc(dob).format('YYYY/MM/DD'), 
@@ -38,13 +39,13 @@ const EditStudentPage = ({ studentToEdit }) => {
     };
 
     const loadScholarships = async () => {
-        const response = await fetch('/Scholarships'); // calling rest API to obtain array of "scholarships"
+        const response = await fetch(`${apiURL}/Scholarships`); // calling rest API to obtain array of "scholarships"
         const data = await response.json();
         setScholarships(data);
     };
 
     const loadDegrees = async () => {
-        const response = await fetch('/Degrees'); // calling rest API to obtain array of "degrees"
+        const response = await fetch(`${apiURL}/Degrees`); // calling rest API to obtain array of "degrees"
         const data = await response.json();
         setDegrees(data);
     };

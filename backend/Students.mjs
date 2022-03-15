@@ -41,35 +41,14 @@ const retrieve = (req, res) => {
 // Search by first AND last name
 const searchFirstAndLast = (req, res) => {
     console.log("is students.searchFirstAndLast being called?");
-    let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name= ? AND Students.last_name= ?;";
-    var inserts = [req.params.first_name, req.params.last_name];
-    query = mysql.pool.query(query, inserts, function(err, results, fields) {
-        if (err) {
-            console.log(err);
-            // In case of an error, send back status code 400
-            res.status(400).json({Error: 'Request failed'});
-        }
-        else {
-            console.log("is else being called in retrieve")
-            res.setHeader('content-type', 'application/json');
-            res.status(200).json(results);
-        }
-    })
-}
-
-// Search by first OR last name
-const searchFirstOrLast = (req, res) => {
-    console.log("is students.searchFirstOrLast being called?");
-    console.log(req.params.first, req.params.last);
-    if (req.params.last === '@@@') {
-        req.params.last = '';
+    if (req.params.first_name === '@@@') {
+        req.params.first_name = '';
     }
-    if (req.params.first === '@@@') {
-        req.params.first = '';
+    if (req.params.last_name === '@@@') {
+        req.params.last_name = '';
     }
-    console.log(req.params.first, req.params.last);
-    let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name= ? OR Students.last_name= ?;";
-    var inserts = [req.params.first, req.params.last];
+    let query = "SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, Students.city, Students.state, Students.zip, Students.phone_number, Students.dob, Degrees.degree_name, Scholarships.name FROM Students INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name LIKE ? AND Students.last_name LIKE ?;";
+    var inserts = [req.params.first_name + '%', req.params.last_name + '%'];
     query = mysql.pool.query(query, inserts, function(err, results, fields) {
         if (err) {
             console.log(err);
@@ -147,4 +126,4 @@ const remove = (req, res) => {
     })
 }
 
-export { create , retrieve, searchFirstAndLast, searchFirstOrLast, searchByDegree, remove, update };
+export { create , retrieve, searchFirstAndLast, searchByDegree, remove, update };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const AddCourseRegistrationPage = () => {
 
@@ -15,7 +16,7 @@ const AddCourseRegistrationPage = () => {
     const AddCourseRegistration = async () => {
 
         const newCourseRegistration = { student_id: student_id, course_id: course_id };
-        const response = await fetch('/add-course-registration', {
+        const response = await fetch(`${apiURL}/add-course-registration`, {
             method: 'POST',
             body: JSON.stringify(newCourseRegistration),
             headers: {
@@ -31,13 +32,13 @@ const AddCourseRegistrationPage = () => {
     };
 
     const loadStudents = async () => {
-        const response = await fetch('/Students'); // calling rest API to obtain array of "students"
+        const response = await fetch(`${apiURL}/Students`); // calling rest API to obtain array of "students"
         const data = await response.json();
         setStudents(data);
     };
 
     const loadCourses = async () => {
-        const response = await fetch('/Courses'); // calling rest API to obtain array of "courses"
+        const response = await fetch(`${apiURL}/Courses`); // calling rest API to obtain array of "courses"
         const data = await response.json();
         setCourses(data);
     };

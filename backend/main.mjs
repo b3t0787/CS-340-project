@@ -28,7 +28,6 @@ app.set('mysql', mysql);
 app.post('/add-student', students.create);
 app.get('/Students', students.retrieve);
 app.get('/Students/search-first-and-last/first_name/:first_name/last_name/:last_name', students.searchFirstAndLast);
-app.get('/Students/search-first-or-last/first/:first/last/:last', students.searchFirstOrLast);
 app.get('/Students/search-by-degree/degree_id/:degree_id', students.searchByDegree);
 app.put('/Students/:_id', students.update);
 app.delete('/Students/:_id', students.remove);

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const EditScholarshipPage = ({ scholarshipToEdit }) => {
 
@@ -11,7 +12,7 @@ const EditScholarshipPage = ({ scholarshipToEdit }) => {
     const nav = useNavigate();
 
     const EditScholarship = async () => {
-        const response = await fetch(`/Scholarships/${scholarshipToEdit.scholarship_id}`, {
+        const response = await fetch(`${apiURL}/Scholarships/${scholarshipToEdit.scholarship_id}`, {
             method: "put",
             body: JSON.stringify({ name: scholarship_name, amount: scholarship_amount }),
             headers: { 'Content-type': 'application/json'}

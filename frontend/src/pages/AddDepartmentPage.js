@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const AddDepartmentPage = () => {
 
@@ -13,7 +14,7 @@ const AddDepartmentPage = () => {
     const AddDepartment = async () => {
 
         const newDepartment = { dept_name: dept_name };
-        const response = await fetch('/add-department', {
+        const response = await fetch(`${apiURL}/add-department`, {
             method: 'POST',
             body: JSON.stringify(newDepartment),
             headers: {

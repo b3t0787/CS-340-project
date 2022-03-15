@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useState, useEffect } from 'react';
 import ListCourses from '../components/ListCourses.js'
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 function Courses({ setCourseToEdit}) {
 
@@ -14,7 +15,7 @@ function Courses({ setCourseToEdit}) {
     const nav = useNavigate();
 
     const searchDepartment = async() => {
-        const response = await fetch(`/Courses/search-by-department/${dept_id}`);
+        const response = await fetch(`${apiURL}/Courses/search-by-department/${dept_id}`);
         const data = await response.json();
         setCourses(data);
     }
@@ -25,7 +26,7 @@ function Courses({ setCourseToEdit}) {
     };
 
     const deleteCourse = async _id => {
-        const response = await fetch(`/Courses/${_id}`, {method: "DELETE" });
+        const response = await fetch(`${apiURL}/Courses/${_id}`, {method: "DELETE" });
         if (response.status === 204) {
             setCourses(courses.filter(e => e.course_id !== _id));
         } else {
@@ -34,13 +35,13 @@ function Courses({ setCourseToEdit}) {
     };
 
     const loadCourses = async () => {
-        const response = await fetch('/Courses'); // calling rest API to obtain array of "courses"
+        const response = await fetch(`${apiURL}/Courses`); // calling rest API to obtain array of "courses"
         const data = await response.json();
         setCourses(data);
     }
 
     const loadDepartments = async () => {
-        const response = await fetch('/Departments'); // calling rest API to obtain array of "departments"
+        const response = await fetch(`${apiURL}/Departments`); // calling rest API to obtain array of "departments"
         const data = await response.json();
         setDepartments(data);
     };

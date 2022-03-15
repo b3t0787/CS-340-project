@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const AddScholarshipPage = () => {
 
@@ -13,7 +14,7 @@ const AddScholarshipPage = () => {
     const AddScholarship = async () => {
 
         const newScholarship = { name: name, amount: amount };
-        const response = await fetch('/add-scholarship', {
+        const response = await fetch(`${apiURL}/add-scholarship`, {
             method: 'POST',
             body: JSON.stringify(newScholarship),
             headers: {

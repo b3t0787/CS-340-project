@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ListScholarships from '../components/ListScholarships.js'
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 
 function Scholarships({ setScholarshipToEdit }) {
@@ -29,13 +30,13 @@ function Scholarships({ setScholarshipToEdit }) {
         if (max === '') {
             max = '@@@'
         }
-        const response = await fetch(`/Scholarships/search-by-score/min/${min}/max/${max}`);
+        const response = await fetch(`${apiURL}/Scholarships/search-by-score/min/${min}/max/${max}`);
         const data = await response.json();
         setScholarships(data);
     }
 
     const deleteScholarship = async _id => {
-        const response = await fetch(`/Scholarships/${_id}`, {method: "DELETE" });
+        const response = await fetch(`${apiURL}/Scholarships/${_id}`, {method: "DELETE" });
         if (response.status === 204) {
             setScholarships(scholarships.filter(e => e.scholarship_id !== _id));
         } else {
@@ -44,7 +45,7 @@ function Scholarships({ setScholarshipToEdit }) {
     };
 
     const loadScholarships = async () => {
-        const response = await fetch('/Scholarships'); // calling rest API to obtain array of "scholarships"
+        const response = await fetch(`${apiURL}/Scholarships`); // calling rest API to obtain array of "scholarships"
         const data = await response.json();
         setScholarships(data);
     }

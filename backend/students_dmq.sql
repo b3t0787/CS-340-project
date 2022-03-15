@@ -27,16 +27,8 @@ SELECT Students.student_id, Students.first_name, Students.last_name, Students.st
 	   Students.city, Students.state, Students.zip, Students.phone_number,
 	   Students.dob, Degrees.degree_name, Scholarships.name FROM Students 
 	   INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id
-	   LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name=:first_name 
-	   AND Students.last_name=:last_name;
-
---search by first OR last name 
-SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, 
-	   Students.city, Students.state, Students.zip, Students.phone_number,
-	   Students.dob, Degrees.degree_name, Scholarships.name FROM Students 
-	   INNER JOIN Degrees ON Students.degree_id = Degrees.degree_id
-	   LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name=:first_name 
-	   OR Students.last_name=:last_name;
+	   LEFT JOIN Scholarships ON Students.scholarship_id = Scholarships.scholarship_id WHERE Students.first_name LIKE `:first_name%` 
+	   AND Students.last_name LIKE `:last_name%`;
 
 --search by degrees
 SELECT Students.student_id, Students.first_name, Students.last_name, Students.street, 

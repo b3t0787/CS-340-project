@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const AddDegreePage = () => {
 
@@ -14,7 +15,7 @@ const AddDegreePage = () => {
     const AddDegree = async () => {
 
         const newDegree = { dept_id: dept_id,  degree_name: degree_name };
-        const response = await fetch('/add-degree', {
+        const response = await fetch(`${apiURL}/add-degree`, {
             method: 'POST',
             body: JSON.stringify(newDegree),
             headers: {
@@ -30,7 +31,7 @@ const AddDegreePage = () => {
     };
 
     const loadDepartments = async () => {
-        const response = await fetch('/Departments'); // calling rest API to obtain array of "departments"
+        const response = await fetch(`${apiURL}/Departments`); // calling rest API to obtain array of "departments"
         const data = await response.json();
         setDepartments(data);
     };

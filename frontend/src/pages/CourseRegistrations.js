@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ListCourseRegistrations from '../components/ListCourseRegistrations.js';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 function CourseRegistrations({ setRecordGrade }) {
 
@@ -32,7 +33,7 @@ function CourseRegistrations({ setRecordGrade }) {
         if (cor === '') {
             cor = '@@@'
         }
-        const response = await fetch(`/Course-Registrations/search-by-student-course/stud/${stud}/cor/${cor}`);
+        const response = await fetch(`${apiURL}/Course-Registrations/search-by-student-course/stud/${stud}/cor/${cor}`);
         const data = await response.json();
         setCourseRegistrations(data);
     }
@@ -46,13 +47,13 @@ function CourseRegistrations({ setRecordGrade }) {
         if (max === '') {
             max = '@@@'
         }
-        const response = await fetch(`/Course-Registrations/search-by-score/min/${min}/max/${max}`);
+        const response = await fetch(`${apiURL}/Course-Registrations/search-by-score/min/${min}/max/${max}`);
         const data = await response.json();
         setCourseRegistrations(data);
     }
 
     const deleteCourseRegistration = async (student_id, course_id) => {
-        const response = await fetch(`/Course-Registrations/student_id/${student_id}/course_id/${course_id}`, 
+        const response = await fetch(`${apiURL}/Course-Registrations/student_id/${student_id}/course_id/${course_id}`, 
         {method: "DELETE" });
         if (response.status === 204) {
             setCourseRegistrations(courseRegistrations.filter(e => e.student_id !== student_id || e.course_id !== course_id ));
@@ -63,19 +64,19 @@ function CourseRegistrations({ setRecordGrade }) {
     };
 
     const loadCourseRegistrations = async () => {
-        const response = await fetch('/Course-Registrations'); // calling rest API to obtain array of "course registrations"
+        const response = await fetch(`${apiURL}/Course-Registrations`); // calling rest API to obtain array of "course registrations"
         const data = await response.json();
         setCourseRegistrations(data);
     }
 
     const loadStudents = async () => {
-        const response = await fetch('/Students'); // calling rest API to obtain array of "students"
+        const response = await fetch(`${apiURL}/Students`); // calling rest API to obtain array of "students"
         const data = await response.json();
         setStudents(data);
     };
 
     const loadCourses = async () => {
-        const response = await fetch('/Courses'); // calling rest API to obtain array of "courses"
+        const response = await fetch(`${apiURL}/Courses`); // calling rest API to obtain array of "courses"
         const data = await response.json();
         setCourses(data);
     };

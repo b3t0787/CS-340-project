@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const EditCoursePage = ({ courseToEdit }) => {
 
@@ -13,7 +14,7 @@ const EditCoursePage = ({ courseToEdit }) => {
     const nav = useNavigate();
 
     const EditCourse = async () => {
-        const response = await fetch(`/Courses/${courseToEdit.course_id}`, {
+        const response = await fetch(`${apiURL}/Courses/${courseToEdit.course_id}`, {
             method: "put",
             body: JSON.stringify({ title: course_title, dept_id: dept_id, unit_hours: unit_hours }),
             headers: { 'Content-type': 'application/json'}
@@ -27,7 +28,7 @@ const EditCoursePage = ({ courseToEdit }) => {
     };
 
     const loadDepartments = async () => {
-        const response = await fetch('/Departments'); // calling rest API to obtain array of "Departments"
+        const response = await fetch(`${apiURL}/Departments`); // calling rest API to obtain array of "Departments"
         const data = await response.json();
         setDepartments(data);
     };

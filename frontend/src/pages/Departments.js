@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ListDepartments from '../components/ListDepartments';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 function Departments({ setDepartmentToEdit}) {
 
@@ -17,7 +18,7 @@ function Departments({ setDepartmentToEdit}) {
     };
 
     const deleteDepartment = async _id => {
-        const response = await fetch(`/Departments/${_id}`, {method: "DELETE" });
+        const response = await fetch(`${apiURL}/Departments/${_id}`, {method: "DELETE" });
         if (response.status === 204) {
             setDepartments(departments.filter(e => e.dept_id !== _id));
         } else {
@@ -26,7 +27,7 @@ function Departments({ setDepartmentToEdit}) {
     };
 
     const loadDepartments = async () => {
-        const response = await fetch('/Departments'); // calling rest API to obtain array of "departments"
+        const response = await fetch(`${apiURL}/Departments`); // calling rest API to obtain array of "departments"
         const data = await response.json();
         setDepartments(data);
     }

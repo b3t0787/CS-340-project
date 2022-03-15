@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const AddStudentPage = () => {
 
@@ -22,7 +23,7 @@ const AddStudentPage = () => {
 
         const newStudent = { degree_id: degree_id, first_name: first_name, last_name: last_name, 
             street: street, city: city, state: state, zip: zip, phone_number: phone_number, dob: dob };
-        const response = await fetch('/add-student', {
+        const response = await fetch(`${apiURL}/add-student`, {
             method: 'POST',
             body: JSON.stringify(newStudent),
             headers: {
@@ -38,7 +39,7 @@ const AddStudentPage = () => {
     };
 
     const loadDegrees = async () => {
-        const response = await fetch('/Degrees'); // calling rest API to obtain array of "degrees"
+        const response = await fetch(`${apiURL}/Degrees`); // calling rest API to obtain array of "degrees"
         const data = await response.json();
         setDegrees(data);
     };
@@ -138,6 +139,7 @@ const AddStudentPage = () => {
                     </td>
                     <td>
                         <select onChange={handleDegreeChange}>
+                        <option></option>
                         {degrees.map((degree) => <option value={degree.degree_id}>{degree.degree_name}</option>)}
                         </select>
                     </td>

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import ListStudents from '../components/ListStudents.js';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 function Students( { setStudentToEdit }) {
     const [students, setStudents] = useState([]);
@@ -16,7 +17,7 @@ function Students( { setStudentToEdit }) {
    
     const searchName = async () => {
         if (first_name !== '' && last_name !== '') {
-            const response = await fetch(`/Students/search-first-and-last/first_name/${first_name}/last_name/${last_name}`);
+            const response = await fetch(`${apiURL}/Students/search-first-and-last/first_name/${first_name}/last_name/${last_name}`);
             const data = await response.json();
             setStudents(data);
         }
@@ -30,14 +31,14 @@ function Students( { setStudentToEdit }) {
             if (first === '') {
                 first = '@@@'
             }
-            const response = await fetch(`/Students/search-first-or-last/first/${first}/last/${last}`);
+            const response = await fetch(`${apiURL}/Students/search-first-and-last/first_name/${first}/last_name/${last}`);
             const data = await response.json();
             setStudents(data);
         }
     };
 
     const searchDegree = async () => {
-        const response = await fetch(`/Students/search-by-degree/degree_id/${degree_id}`);
+        const response = await fetch(`${apiURL}/Students/search-by-degree/degree_id/${degree_id}`);
         const data = await response.json();
         setStudents(data);
     };
@@ -49,7 +50,7 @@ function Students( { setStudentToEdit }) {
     };
 
     const deleteStudent = async _id => {
-        const response = await fetch(`/Students/${_id}`, {method: "DELETE" });
+        const response = await fetch(`${apiURL}/Students/${_id}`, {method: "DELETE" });
         if (response.status === 204) {
             setStudents(students.filter(e => e.student_id !== _id));
         } else {
@@ -58,13 +59,13 @@ function Students( { setStudentToEdit }) {
     };
 
     const loadDegrees = async () => {
-        const response = await fetch('/Degrees'); // calling rest API to obtain array of "degrees"
+        const response = await fetch(`${apiURL}/Degrees`); // calling rest API to obtain array of "degrees"
         const data = await response.json();
         setDegrees(data);
     };
 
     const loadStudents = async () => {
-        const response = await fetch('/Students'); // calling rest API to obtain array of "students"
+        const response = await fetch(`${apiURL}/Students`); // calling rest API to obtain array of "students"
         const data = await response.json();
         setStudents(data);
     }

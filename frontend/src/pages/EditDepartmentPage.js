@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import topImage from '../logos/topImage.jpeg';
+import apiURL from '../data/apiURL.js';
 
 const EditDepartmentPage = ({ departmentToEdit }) => {
 
@@ -10,7 +11,7 @@ const EditDepartmentPage = ({ departmentToEdit }) => {
     const nav = useNavigate();
 
     const EditDepartment = async () => {
-        const response = await fetch(`/Departments/${departmentToEdit.dept_id}`, {
+        const response = await fetch(`${apiURL}/Departments/${departmentToEdit.dept_id}`, {
             method: "put",
             body: JSON.stringify({ department_name: department_name }),
             headers: { 'Content-type': 'application/json'}
